@@ -1,4 +1,5 @@
-from datetime import datetime 
+from datetime import datetime
+
 
 class Category:
   def __init__(self, name: str, description: str, is_active: bool, created_at: datetime) -> None:
@@ -7,4 +8,3 @@ class Category:
     self.is_active = is_active
     self.created_at = created_at
     
-print(vars(Category('Movie', 'some description', True, datetime.now())))
