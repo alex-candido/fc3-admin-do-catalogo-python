@@ -14,7 +14,3 @@ class Category:
       default_factory=lambda: datetime.now()
     )
   
-  
-print(Category('Movie'))
-print(Category('Movie'))
-print(Category('Movie'))
