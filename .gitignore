@@ -1,0 +1,8 @@
+.history/
+*.pyc
+.docker/zsh/history/.zsh_history
+__pypackages__
+.pytest_cache
+.coverage
+__coverage
+db.sqlite3
