@@ -4,13 +4,12 @@ from datetime import datetime
 
 from category.domain.entities import Category
 
-
 class TestCategoryUnit(unittest.TestCase):
   
   def test_if_is_a_dataclass(self):
     self.assertTrue(is_dataclass(Category))
   
-  def test_constructor(self):
+  def test_constructor(self):  # sourcery skip: extract-duplicate-method
     category = Category(name='Movie')
    
     self.assertEqual(category.name, 'Movie')

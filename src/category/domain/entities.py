@@ -1,9 +1,7 @@
-
 import uuid
 from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Optional
-
 
 @dataclass(kw_only=True, frozen=True, slots=True) #init, repr, eq
 class Category:
