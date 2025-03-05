@@ -1,0 +1,14 @@
+[[package]]
+name = "dataclasses"
+version = "0.6"
+summary = "A backport of the dataclasses module for Python 3.6"
+
+[metadata]
+lock_version = "3.1"
+content_hash = "sha256:cb479fbdb81311e0f02914d25c49e4cdb5a3fbe87325160f223a4341a427e281"
+
+[metadata.files]
+"dataclasses 0.6" = [
+    {file = "dataclasses-0.6-py3-none-any.whl", hash = "sha256:454a69d788c7fda44efd71e259be79577822f5e3f53f029a22d08004e951dc9f"},
+    {file = "dataclasses-0.6.tar.gz", hash = "sha256:6988bd2b895eef432d562370bb707d540f32f7360ab13da45340101bc2307d84"},
+]

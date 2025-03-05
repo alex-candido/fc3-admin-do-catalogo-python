@@ -1,0 +1,24 @@
+[project]
+name = "fc3-admin-do-catalogo-python"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [
+    {name = "Alex Candido", email = "alex.candido.tec@gmail.com"},
+]
+dependencies = [
+  "dataclasses>=0.6",
+]
+requires-python = ">=3.10"
+readme = "README.md"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[tool.pdm]
+packages = [{include = "src"}]
+distribution = true
+
+[tool.pdm.environment]
+python_path = "/home/alex-cndd/Documentos/development/projects/backend/python-django/fc3-admin-do-catalogo-python/src"
