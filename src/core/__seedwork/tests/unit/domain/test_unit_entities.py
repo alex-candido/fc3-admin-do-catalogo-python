@@ -6,6 +6,7 @@ from dataclasses import dataclass, is_dataclass
 from core.__seedwork.domain.entities import Entity
 from core.__seedwork.domain.value_objects import UniqueEntityId
 
+
 @dataclass(frozen=True, kw_only=True)
 class StubEntity(Entity):
     prop1: str

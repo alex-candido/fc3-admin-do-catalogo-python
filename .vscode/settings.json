@@ -1,36 +1,4 @@
 {
-    "python.linting.pylintEnabled": true,
-    "python.linting.enabled": true,
-    "python.linting.pylintPath": "pylint",
-    "python.linting.pylintArgs": [
-        "--disable=C0111"
-    ],
-    "python.autoComplete.extraPaths": [
-        "${workspaceFolder}/__pypackages__/3.10/lib"
-    ],
-    "python.analysis.extraPaths": [
-        "${workspaceFolder}/__pypackages__/3.10/lib"
-    ],
-    "python.analysis.autoImportCompletions": true,
-    "python.analysis.indexing": true,
-    "python.analysis.packageIndexDepths": [
-        {
-            "name": "django",
-            "includeAllSymbols": true,
-            "depth": 10
-        },
-        {
-            "name": "rest_framework",
-            "includeAllSymbols": true,
-            "depth": 10
-        },
-        {
-            "name": "core",
-            "includeAllSymbols": true,
-            "depth": 10
-        },
-    ],
-    "peacock.remoteColor": "#25415d",
     "python.testing.pytestArgs": [
         "src",
         "--ignore",
