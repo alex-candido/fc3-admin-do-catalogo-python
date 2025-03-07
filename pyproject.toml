@@ -5,9 +5,11 @@ description = "Default template for PDM package"
 authors = [
     {name = "Alex Candido", email = "alex.candido.tec@gmail.com"},
 ]
+
 dependencies = [
   "dataclasses>=0.6",
 ]
+
 requires-python = ">=3.10"
 readme = "README.md"
 license = {text = "MIT"}
@@ -21,4 +23,22 @@ packages = [{include = "src"}]
 distribution = true
 
 [tool.pdm.environment]
-python_path = "/home/alex-cndd/Documentos/development/projects/backend/python-django/fc3-admin-do-catalogo-python/src"
+python_path = "/home/fb-online/Documentos/_projects/fc3-admin-do-catalogo-python/src"
+
+[dependency-groups]
+dev = [
+    "autopep8>=2.3.2",
+    "pylint>=3.3.4",
+    "pytest>=8.3.5",
+]
+
+[tool.pdm.scripts]
+format = "autopep8 --in-place --aggressive --aggressive -r ."
+manage="python ./src/django_app/manage.py"
+pep8 = "autopep8 --in-place --recursive ./src"
+pylint = "pylint ./src"
+runserver = "pdm run manage runserver 0.0.0.0:8000"
+test = "pytest"
+test_cov = "pdm run test --cov ./src --cov-fail-under 80"
+test_cov_html = "pdm run test_cov --cov-report html:./__coverage"
+
