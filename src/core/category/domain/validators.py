@@ -11,7 +11,6 @@ class CategoryRules(serializers.Serializer):
     is_active = StrictBooleanField(required=False)
     created_at = serializers.DateTimeField(required=False)
 
-
 class CategoryValidator(DRFValidator):  # pylint: disable=too-few-public-methods
 
     def validate(self, data: Dict) -> bool:

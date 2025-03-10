@@ -1,10 +1,10 @@
 {
-    "python.testing.pytestArgs": [
-        "src",
-        "--ignore",
-        "__pypackages__",
-        "-s"
-    ],
-    "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true,
+  "python.testing.pytestArgs": ["src", "--ignore", "__pypackages__", "-s"],
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestEnabled": true,
+  "python.defaultInterpreterPath": "/home/alex-cndd/Documentos/development/projects/backend/python-django/fc3-admin-do-catalogo-python/.venv/bin/python",
+  "python.autoComplete.extraPaths": ["./src"],
+  "python.analysis.extraPaths": ["./src"],
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.indexing": true
 }
