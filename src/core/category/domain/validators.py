@@ -4,7 +4,6 @@ from core.__seedwork.domain.validators import DRFValidator, StrictBooleanField, 
 
 # pylint: disable=abstract-method
 
-
 class CategoryRules(serializers.Serializer):
     name = StrictCharField(max_length=255)
     description = StrictCharField(

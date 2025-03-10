@@ -15,7 +15,12 @@ class Category(Entity):
     created_at: Optional[datetime] = field(
         default_factory=lambda: datetime.now()
     )
-    
+
+    def __post_init__(self):
+        if not self.created_at:
+            self._set('created_at',  datetime.datetime.now(datetime.timezone.utc))
+        self.validate()
+
     def update(self, name: str, description: str):
         self._set("name", name)
         self._set("description", description)
@@ -23,10 +28,10 @@ class Category(Entity):
 
     def activate(self):
         self._set("is_active", True)
-        
+
     def deactivate(self):
         self._set("is_active", False)
-        
+
     def validate(self):
         validator = CategoryValidatorFactory.create()
         is_valid = validator.validate(self.to_dict())
