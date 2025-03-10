@@ -24,7 +24,7 @@ packages = [{include = "src"}]
 distribution = true
 
 [tool.pdm.environment]
-python_path = "/home/fb-online/Documentos/_projects/fc3-admin-do-catalogo-python/src"
+python_path = "/home/alex-cndd/Documentos/development/projects/backend/python-django/fc3-admin-do-catalogo-python/src"
 
 [dependency-groups]
 dev = [
