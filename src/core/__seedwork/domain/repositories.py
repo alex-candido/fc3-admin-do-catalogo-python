@@ -34,6 +34,18 @@ class RepositoryInterface(Generic[ET], ABC):
     @abc.abstractmethod
     def delete(self, entity_id: str | UniqueEntityId) -> None:
         raise NotImplementedError()
+    
+Input = TypeVar('Input')
+Output = TypeVar('Output')
+
+
+class SearchableRepositoryInterface(Generic[ET, Input, Output], RepositoryInterface[ET], ABC):
+
+    sortable_fields: List[str] = []
+
+    @abc.abstractmethod
+    def search(self, input_params: Input) -> Output:
+        raise NotImplementedError()
 
 @dataclass(slots=True)
 class InMemoryRepository(RepositoryInterface[ET], ABC):
