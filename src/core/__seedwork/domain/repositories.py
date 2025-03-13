@@ -1,6 +1,7 @@
+
+
 from abc import ABC
 import abc
-from ast import Delete
 from dataclasses import dataclass, field
 import math
 from typing import Any, Generic, List, Optional, TypeVar
@@ -9,6 +10,7 @@ from core.__seedwork.domain.entities import Entity
 from core.__seedwork.domain.exceptions import NotFoundException
 
 ET = TypeVar('ET', bound=Entity)
+
 
 class RepositoryInterface(Generic[ET], ABC):
 
@@ -34,7 +36,8 @@ class RepositoryInterface(Generic[ET], ABC):
     @abc.abstractmethod
     def delete(self, entity_id: str | UniqueEntityId) -> None:
         raise NotImplementedError()
-    
+
+
 Input = TypeVar('Input')
 Output = TypeVar('Output')
 
@@ -46,7 +49,8 @@ class SearchableRepositoryInterface(Generic[ET, Input, Output], RepositoryInterf
     @abc.abstractmethod
     def search(self, input_params: Input) -> Output:
         raise NotImplementedError()
-    
+
+
 Filter = TypeVar('Filter', str, Any)
 
 
@@ -101,8 +105,8 @@ class SearchParams(Generic[Filter]):
 
     def _get_dataclass_field(self, field_name):  # pylint: disable=no-self-use
         return SearchParams.__dataclass_fields__[field_name]  # pylint: disable=no-member
-    
-    
+
+
 @dataclass(slots=True, kw_only=True, frozen=True)
 class SearchResult(Generic[ET, Filter]):  # pylint: disable=too-many-instance-attributes
     items: List[ET]
@@ -132,7 +136,7 @@ class SearchResult(Generic[ET, Filter]):  # pylint: disable=too-many-instance-at
             'sort_dir': self.sort_dir,
             'filter': self.filter,
         }
-        
+
 
 @dataclass(slots=True)
 class InMemoryRepository(RepositoryInterface[ET], ABC):
@@ -166,3 +170,46 @@ class InMemoryRepository(RepositoryInterface[ET], ABC):
         if not entity:
             raise NotFoundException(f"Entity not found using ID '{entity_id}'")
         return entity
+
+
+class InMemorySearchableRepository(
+    Generic[ET, Filter],
+    InMemoryRepository[ET],
+    SearchableRepositoryInterface[
+        ET,
+        SearchParams[Filter],
+        SearchResult[ET, Filter]
+    ],
+    ABC
+):
+    def search(self, input_params: SearchParams[Filter]) -> SearchResult[ET, Filter]:
+        items_filtered = self._apply_filter(self.items, input_params.filter)
+        items_sorted = self._apply_sort(
+            items_filtered, input_params.sort, input_params.sort_dir)
+        items_paginated = self._apply_paginate(
+            items_sorted, input_params.page, input_params.per_page)
+
+        return SearchResult(
+            items=items_paginated,
+            total=len(items_filtered),
+            current_page=input_params.page,
+            per_page=input_params.per_page,
+            sort=input_params.sort,
+            sort_dir=input_params.sort_dir,
+            filter=input_params.filter
+        )
+
+    @abc.abstractmethod
+    def _apply_filter(self, items: List[ET], filter_param: Filter | None) -> List[ET]:
+        raise NotImplementedError()
+
+    def _apply_sort(self, items: List[ET], sort: str | None, sort_dir: str | None) -> List[ET]:
+        if sort and sort in self.sortable_fields:
+            is_reverse = sort_dir == 'desc'
+            return sorted(items, key=lambda item: getattr(item, sort), reverse=is_reverse)
+        return items
+
+    def _apply_paginate(self, items: List[ET], page: int, per_page: int) -> List[ET]:  # pylint: disable=no-self-use
+        start = (page - 1) * per_page
+        limit = start + per_page
+        return items[slice(start, limit)]
