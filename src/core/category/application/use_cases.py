@@ -21,25 +21,15 @@ class CreateCategoryUseCase():
         )
         
         self.category_repo.insert(category)
-        return self.Output(
-            id=category.id,
-            name=category.name,
-            description=category.description,
-            is_activate=category.is_active,
-            created_at=category.created_at
-        )
+        return self.__to_output(category)
     
     @dataclass(slots=True, frozen=True)
     class Input:
         name: str
-        description: Optional[str]
-        is_active: Optional[bool]
+        description: Optional[str] = Category.get_field('description').default
+        is_active: Optional[bool] = Category.get_field('is_active').default
         
     @dataclass(slots=True, frozen=True)
-    class Output:
-        id: str
-        name: str
-        description: Optional[str]
-        is_active: bool
-        created_at: datetime
-        
+    class Output(CategoryOutput):
+        pass
+    
