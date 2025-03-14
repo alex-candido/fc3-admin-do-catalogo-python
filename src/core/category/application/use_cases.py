@@ -36,12 +36,8 @@ class CreateCategoryUseCase():
         is_active: Optional[bool]
         
     @dataclass(slots=True, frozen=True)
-    class Output:
-        id: str
-        name: str
-        description: Optional[str]
-        is_active: bool
-        created_at: datetime
+    class Output(CategoryOutput):
+        pass
         
 
 @dataclass(slots=True, frozen=True)
@@ -64,9 +60,6 @@ class GetCategoryUseCase(UseCase):
         id: str
         
     @dataclass(slots=True, frozen=True)
-    class Output:
-        id: str
-        name: str
-        description: Optional[str]
-        is_active: bool
-        created_at: datetime
+    @dataclass(slots=True, frozen=True)
+    class Output(CategoryOutput):
+        pass
