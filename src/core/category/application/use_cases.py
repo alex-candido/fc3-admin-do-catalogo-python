@@ -1,7 +1,8 @@
-
 # pylint: disable=unexpected-keyword-arg
 from dataclasses import dataclass, asdict
+from re import search
 from typing import Optional
+from unittest import result
 from core.__seedwork.application.dto import PaginationOutput, PaginationOutputMapper, SearchInput
 from core.__seedwork.application.use_cases import UseCase
 from core.category.domain.entities import Category
@@ -57,4 +58,31 @@ class GetCategoryUseCase(UseCase):
 
     @dataclass(slots=True, frozen=True)
     class Output(CategoryOutput):
+        pass
+
+@dataclass(slots=True, frozen=True)
+class ListCategoriesUseCase(UseCase):
+
+    category_repo: CategoryRepository
+
+    def execute(self, input_param: 'Input') -> 'Output':
+        search_params = self.category_repo.SearchParams(**asdict(input_param))
+        result = self.category_repo.search(search_params)
+        return self.__to_output(result)
+
+    def __to_output(self, result: CategoryRepository.SearchResult):  # pylint: disable=no-self-use
+      items = list(map(CategoryOutputMapper.without_child().to_output, result.items))
+      return PaginationOutputMapper\
+        .from_child(ListCategoriesUseCase.Output)\
+        .to_output(
+          items,
+          result
+        )
+
+    @dataclass(slots=True, frozen=True)
+    class Input(SearchInput[str]):
+        pass
+
+    @dataclass(slots=True, frozen=True)
+    class Output(PaginationOutput[CategoryOutput]):
         pass
