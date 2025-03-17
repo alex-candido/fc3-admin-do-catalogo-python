@@ -120,7 +120,8 @@ class TestGetCategoryUseCaseUnit(unittest.TestCase):
         with self.assertRaises(NotFoundException) as assert_error:
             self.use_case.execute(input_param)
         self.assertEqual(
-            assert_error.exception.args[0], "Entity not found using ID 'fake id'")
+            assert_error.exception.args[0],
+            "Entity not found using ID 'fake id'")
 
     def test_output(self):
         self.assertTrue(
@@ -369,7 +370,8 @@ class TestUpdateCategoryUseCase(unittest.TestCase):
         with self.assertRaises(NotFoundException) as assert_error:
             self.use_case.execute(request)
         self.assertEqual(
-            assert_error.exception.args[0], "Entity not found using ID 'not_found'")
+            assert_error.exception.args[0],
+            "Entity not found using ID 'not_found'")
 
     def test_execute(self):
         category = Category(name='test')
@@ -497,7 +499,8 @@ class TestDeleteCategoryUseCase(unittest.TestCase):
         with self.assertRaises(NotFoundException) as assert_error:
             self.use_case.execute(request)
         self.assertEqual(
-            assert_error.exception.args[0], "Entity not found using ID 'not_found'")
+            assert_error.exception.args[0],
+            "Entity not found using ID 'not_found'")
 
     def test_execute(self):
         category = Category(name='test')

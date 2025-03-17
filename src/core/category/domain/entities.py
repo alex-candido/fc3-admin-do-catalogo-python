@@ -7,6 +7,7 @@ from core.__seedwork.domain.exceptions import EntityValidationException
 
 from core.category.domain.validators import CategoryValidatorFactory
 
+
 @dataclass(kw_only=True, frozen=True, slots=True)  # init, repr, eq
 class Category(Entity):
     name: str
@@ -18,7 +19,8 @@ class Category(Entity):
 
     def __post_init__(self):
         if not self.created_at:
-            self._set('created_at',  datetime.datetime.now(datetime.timezone.utc))
+            self._set('created_at', datetime.datetime.now(
+                datetime.timezone.utc))
         self.validate()
 
     def update(self, name: str, description: str):

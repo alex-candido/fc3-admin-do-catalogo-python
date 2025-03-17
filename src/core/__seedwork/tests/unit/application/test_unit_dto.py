@@ -35,7 +35,8 @@ class TestPaginationOutput(unittest.TestCase):
         })
 
 
-class PaginationOutputChild(PaginationOutput):  # pylint: disable=too-few-public-methods
+class PaginationOutputChild(
+        PaginationOutput):  # pylint: disable=too-few-public-methods
     pass
 
 

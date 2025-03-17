@@ -19,7 +19,8 @@ class TestCategoryOutputUnit(unittest.TestCase):
         })
 
 
-class CategoryOutputChild(CategoryOutput):  # pylint: disable=too-few-public-methods
+class CategoryOutputChild(
+        CategoryOutput):  # pylint: disable=too-few-public-methods
     pass
 
 
