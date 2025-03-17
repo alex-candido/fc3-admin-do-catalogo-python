@@ -58,7 +58,9 @@ class ValidatorFieldsInterface(ABC, Generic[PropsValidated]):
         raise NotImplementedError()
 
 
-class DRFValidator(ValidatorFieldsInterface[PropsValidated], ABC):  # pylint: disable=too-few-public-methods
+class DRFValidator(
+        ValidatorFieldsInterface[PropsValidated],
+        ABC):  # pylint: disable=too-few-public-methods
 
     def validate(self, data: Serializer) -> bool:
         serializer = data

@@ -245,7 +245,10 @@ class TestDRFValidatorUnit(unittest.TestCase):
         return_value={'field': ['some error']},
         new_callable=PropertyMock
     )
-    def test_if_errors_is_set(self, mock_errors: PropertyMock, mock_is_valid: MagicMock):
+    def test_if_errors_is_set(
+            self,
+            mock_errors: PropertyMock,
+            mock_is_valid: MagicMock):
         validator = DRFValidator()
         is_valid = validator.validate(Serializer())
         self.assertFalse(is_valid)

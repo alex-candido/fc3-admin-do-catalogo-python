@@ -4,10 +4,15 @@ from core.category.domain.repositories import CategoryRepository
 from core.__seedwork.domain.repositories import InMemorySearchableRepository
 
 
-class CategoryInMemoryRepository(CategoryRepository, InMemorySearchableRepository):
+class CategoryInMemoryRepository(
+        CategoryRepository,
+        InMemorySearchableRepository):
     sortable_fields: List[str] = ["name", "created_at"]
 
-    def _apply_filter(self, items: List[Category], filter_param: str = None) -> List[Category]:
+    def _apply_filter(
+            self,
+            items: List[Category],
+            filter_param: str = None) -> List[Category]:
         if filter_param:
             filter_obj = filter(
                 lambda i: filter_param.lower() in i.name.lower(),

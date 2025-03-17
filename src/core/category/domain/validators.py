@@ -4,6 +4,7 @@ from core.__seedwork.domain.validators import DRFValidator, StrictBooleanField, 
 
 # pylint: disable=abstract-method
 
+
 class CategoryRules(serializers.Serializer):
     name = StrictCharField(max_length=255)
     description = StrictCharField(
@@ -11,7 +12,9 @@ class CategoryRules(serializers.Serializer):
     is_active = StrictBooleanField(required=False)
     created_at = serializers.DateTimeField(required=False)
 
-class CategoryValidator(DRFValidator):  # pylint: disable=too-few-public-methods
+
+class CategoryValidator(
+        DRFValidator):  # pylint: disable=too-few-public-methods
 
     def validate(self, data: Dict) -> bool:
         rules = CategoryRules(data=data if data is not None else {})

@@ -42,7 +42,8 @@ Input = TypeVar('Input')
 Output = TypeVar('Output')
 
 
-class SearchableRepositoryInterface(Generic[ET, Input, Output], RepositoryInterface[ET], ABC):
+class SearchableRepositoryInterface(
+        Generic[ET, Input, Output], RepositoryInterface[ET], ABC):
 
     sortable_fields: List[str] = []
 
@@ -104,11 +105,13 @@ class SearchParams(Generic[Filter]):
             return default
 
     def _get_dataclass_field(self, field_name):  # pylint: disable=no-self-use
-        return SearchParams.__dataclass_fields__[field_name]  # pylint: disable=no-member
+        return SearchParams.__dataclass_fields__[
+            field_name]  # pylint: disable=no-member
 
 
 @dataclass(slots=True, kw_only=True, frozen=True)
-class SearchResult(Generic[ET, Filter]):  # pylint: disable=too-many-instance-attributes
+class SearchResult(Generic[ET, Filter]
+                   ):  # pylint: disable=too-many-instance-attributes
     items: List[ET]
     total: int
     current_page: int
@@ -182,7 +185,8 @@ class InMemorySearchableRepository(
     ],
     ABC
 ):
-    def search(self, input_params: SearchParams[Filter]) -> SearchResult[ET, Filter]:
+    def search(
+            self, input_params: SearchParams[Filter]) -> SearchResult[ET, Filter]:
         items_filtered = self._apply_filter(self.items, input_params.filter)
         items_sorted = self._apply_sort(
             items_filtered, input_params.sort, input_params.sort_dir)
@@ -200,13 +204,22 @@ class InMemorySearchableRepository(
         )
 
     @abc.abstractmethod
-    def _apply_filter(self, items: List[ET], filter_param: Filter | None) -> List[ET]:
+    def _apply_filter(
+            self,
+            items: List[ET],
+            filter_param: Filter | None) -> List[ET]:
         raise NotImplementedError()
 
-    def _apply_sort(self, items: List[ET], sort: str | None, sort_dir: str | None) -> List[ET]:
+    def _apply_sort(
+            self,
+            items: List[ET],
+            sort: str | None,
+            sort_dir: str | None) -> List[ET]:
         if sort and sort in self.sortable_fields:
             is_reverse = sort_dir == 'desc'
-            return sorted(items, key=lambda item: getattr(item, sort), reverse=is_reverse)
+            return sorted(
+                items, key=lambda item: getattr(
+                    item, sort), reverse=is_reverse)
         return items
 
     def _apply_paginate(self, items: List[ET], page: int, per_page: int) -> List[ET]:  # pylint: disable=no-self-use

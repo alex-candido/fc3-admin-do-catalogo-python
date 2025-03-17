@@ -50,7 +50,8 @@ class GetCategoryUseCase(UseCase):
         return self.__to_output(category)
 
     def __to_output(self, category: Category):  # pylint: disable=no-self-use
-        return CategoryOutputMapper.from_child(GetCategoryUseCase.Output).to_output(category)
+        return CategoryOutputMapper.from_child(
+            GetCategoryUseCase.Output).to_output(category)
 
     @dataclass(slots=True, frozen=True)
     class Input:
@@ -59,6 +60,7 @@ class GetCategoryUseCase(UseCase):
     @dataclass(slots=True, frozen=True)
     class Output(CategoryOutput):
         pass
+
 
 @dataclass(slots=True, frozen=True)
 class ListCategoriesUseCase(UseCase):
@@ -71,13 +73,14 @@ class ListCategoriesUseCase(UseCase):
         return self.__to_output(result)
 
     def __to_output(self, result: CategoryRepository.SearchResult):  # pylint: disable=no-self-use
-      items = list(map(CategoryOutputMapper.without_child().to_output, result.items))
-      return PaginationOutputMapper\
-        .from_child(ListCategoriesUseCase.Output)\
-        .to_output(
-          items,
-          result
-        )
+        items = list(
+            map(CategoryOutputMapper.without_child().to_output, result.items))
+        return PaginationOutputMapper\
+            .from_child(ListCategoriesUseCase.Output)\
+            .to_output(
+                items,
+                result
+            )
 
     @dataclass(slots=True, frozen=True)
     class Input(SearchInput[str]):
@@ -87,12 +90,13 @@ class ListCategoriesUseCase(UseCase):
     class Output(PaginationOutput[CategoryOutput]):
         pass
 
+
 @dataclass(slots=True, frozen=True)
 class UpdateCategoryUseCase(UseCase):
 
     category_repo: CategoryRepository
 
-    def execute(self, input_param: 'Input') -> 'Output': #Arquitetura Hexagonal
+    def execute(self, input_param: 'Input') -> 'Output':  # Arquitetura Hexagonal
         entity = self.category_repo.find_by_id(input_param.id)
         entity.update(input_param.name, input_param.description)
 
@@ -121,3 +125,20 @@ class UpdateCategoryUseCase(UseCase):
     @dataclass(slots=True, frozen=True)
     class Output(CategoryOutput):
         pass
+
+
+@dataclass(slots=True, frozen=True)
+class DeleteCategoryUseCase(UseCase):
+
+    category_repo: CategoryRepository
+
+    def execute(self, input_param: 'Input') -> None:
+        self.category_repo.delete(input_param.id)
+
+    @dataclass(slots=True, frozen=True)
+    class Input:
+        id: str  # pylint: disable=invalid-name
+
+
+# DTO - Data transfer object
+# request e response

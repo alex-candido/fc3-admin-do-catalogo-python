@@ -24,10 +24,10 @@ class TestRepositoryInterface(unittest.TestCase):
         with self.assertRaises(TypeError) as assert_error:
             # pylint: disable=abstract-class-instantiated
             RepositoryInterface()
-        self.assertEqual(assert_error.exception.args[0],
-                         "Can't instantiate abstract class RepositoryInterface with abstract " +
-                         "methods delete, find_all, find_by_id, insert, update"
-                         )
+        self.assertEqual(
+            assert_error.exception.args[0],
+            "Can't instantiate abstract class RepositoryInterface with abstract " +
+            "methods delete, find_all, find_by_id, insert, update")
 
 
 @dataclass(frozen=True, kw_only=True, slots=True)
@@ -59,7 +59,8 @@ class TestInMemoryRepository(unittest.TestCase):
         with self.assertRaises(NotFoundException) as assert_error:
             self.repo.find_by_id('fake id')
         self.assertEqual(
-            assert_error.exception.args[0], "Entity not found using ID 'fake id'")
+            assert_error.exception.args[0],
+            "Entity not found using ID 'fake id'")
 
         unique_entity_id = UniqueEntityId(
             'af46842e-027d-4c91-b259-3a3642144ba4')
@@ -92,7 +93,8 @@ class TestInMemoryRepository(unittest.TestCase):
         with self.assertRaises(NotFoundException) as assert_error:
             self.repo.update(entity)
         self.assertEqual(
-            assert_error.exception.args[0], f"Entity not found using ID '{entity.id}'")
+            assert_error.exception.args[0],
+            f"Entity not found using ID '{entity.id}'")
 
     def test_update(self):
         entity = StubEntity(name='test', price=5)
@@ -109,12 +111,14 @@ class TestInMemoryRepository(unittest.TestCase):
         with self.assertRaises(NotFoundException) as assert_error:
             self.repo.delete(entity.id)
         self.assertEqual(
-            assert_error.exception.args[0], f"Entity not found using ID '{entity.id}'")
+            assert_error.exception.args[0],
+            f"Entity not found using ID '{entity.id}'")
 
         with self.assertRaises(NotFoundException) as assert_error:
             self.repo.delete(entity.unique_entity_id)
         self.assertEqual(
-            assert_error.exception.args[0], f"Entity not found using ID '{entity.id}'")
+            assert_error.exception.args[0],
+            f"Entity not found using ID '{entity.id}'")
 
     def test_delete(self):
         entity = StubEntity(name='test', price=5)
@@ -139,8 +143,7 @@ class TestSearchableRepositoryInterface(unittest.TestCase):
         self.assertEqual(
             "Can't instantiate abstract class SearchableRepositoryInterface with abstract " +
             "methods delete, find_all, find_by_id, insert, search, update",
-            assert_error.exception.args[0]
-        )
+            assert_error.exception.args[0])
 
     def test_sortable_fields_prop(self):
         self.assertEqual(SearchableRepositoryInterface.sortable_fields, [])
@@ -350,13 +353,18 @@ class TestSearchResult(unittest.TestCase):
         self.assertEqual(result.last_page, 6)
 
 
-class StubInMemorySearchableRepository(InMemorySearchableRepository[StubEntity, str]):
+class StubInMemorySearchableRepository(
+        InMemorySearchableRepository[StubEntity, str]):
     sortable_fields: List[str] = ['name']
 
-    def _apply_filter(self, items: List[StubEntity], filter_param: str | None) -> List[StubEntity]:
+    def _apply_filter(
+            self,
+            items: List[StubEntity],
+            filter_param: str | None) -> List[StubEntity]:
         if filter_param:
-            filter_obj = filter(lambda i: filter_param.lower() in i.name.lower()
-                                or filter_param == str(i.price), items)
+            filter_obj = filter(
+                lambda i: filter_param.lower() in i.name.lower() or filter_param == str(
+                    i.price), items)
             return list(filter_obj)
         return items
 

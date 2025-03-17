@@ -20,7 +20,7 @@ class TestCategoryValidatorUnit(unittest.TestCase):
             {'data': {'name': None}, 'expected': 'This field may not be null.'},
             {'data': {'name': ''}, 'expected': 'This field may not be blank.'},
             {'data': {'name': 5}, 'expected': 'Not a valid string.'},
-            {'data': {'name': 'a'*256},
+            {'data': {'name': 'a' * 256},
                 'expected': 'Ensure this field has no more than 255 characters.'},
         ]
 

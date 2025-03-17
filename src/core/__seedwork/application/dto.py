@@ -39,7 +39,10 @@ class PaginationOutputMapper:
     def from_child(output_child: Output):
         return PaginationOutputMapper(output_child)
 
-    def to_output(self, items: List[Item], result: SearchResult) -> PaginationOutput[Item]:
+    def to_output(
+            self,
+            items: List[Item],
+            result: SearchResult) -> PaginationOutput[Item]:
         return self.output_child(
             items=items,
             total=result.total,
