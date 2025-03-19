@@ -29,7 +29,7 @@ class CategoryResource(APIView):
     def post(self, request: Request):
       input_param = CreateCategoryUseCase.Input(name=request.data['name'])
       output = self.create_use_case().execute(input_param)
-      return Response(asdict(output))
+      return Response(asdict(output), status=http.HTTP_201_CREATED)
 
     def get(self, request: Request):
       input_param = ListCategoriesUseCase.Input(**request.query_params.dict())
