@@ -12,6 +12,7 @@ dependencies = [
   "django-filter>=25.1",
   "markdown>=3.7",
   "django-extensions>=3.2.3",
+  "pytest-django>=4.10.0",
 ]
 
 requires-python = ">=3.10"
