@@ -5,7 +5,7 @@
 groups = ["default", "dev"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:c1af6b40ba4a7a221e39fe091662fc7174fa72fae3baea4e5996a2f917c8b458"
+content_hash = "sha256:2f2c78e65c0c5d361def5980daa9ec317ea311f814a2c5d7c925ce8f8a8f10ff"
 
 [[metadata.targets]]
 requires_python = ">=3.10"
@@ -15,7 +15,7 @@ name = "asgiref"
 version = "3.8.1"
 requires_python = ">=3.8"
 summary = "ASGI specs, helper code, and adapters"
-groups = ["default"]
+groups = ["default", "dev"]
 dependencies = [
     "typing-extensions>=4; python_version < \"3.11\"",
 ]
@@ -271,7 +271,7 @@ name = "django"
 version = "5.1.7"
 requires_python = ">=3.10"
 summary = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
-groups = ["default"]
+groups = ["default", "dev"]
 dependencies = [
     "asgiref<4,>=3.8.1",
     "sqlparse>=0.3.1",
@@ -338,6 +338,20 @@ files = [
 ]
 
 [[package]]
+name = "faker"
+version = "37.0.2"
+requires_python = ">=3.9"
+summary = "Faker is a Python package that generates fake data for you."
+groups = ["dev"]
+dependencies = [
+    "tzdata",
+]
+files = [
+    {file = "faker-37.0.2-py3-none-any.whl", hash = "sha256:8955706c56c28099585e9e2b6f814eb0a3a227eb36a2ee3eb9ab577c4764eacc"},
+    {file = "faker-37.0.2.tar.gz", hash = "sha256:948bd27706478d3aa0b6f9f58b9f25207098f6ca79852c7b49c44a8ced2bc59b"},
+]
+
+[[package]]
 name = "iniconfig"
 version = "2.0.0"
 requires_python = ">=3.7"
@@ -382,6 +396,20 @@ groups = ["dev"]
 files = [
     {file = "mccabe-0.7.0-py2.py3-none-any.whl", hash = "sha256:6c2d30ab6be0e4a46919781807b4f0d834ebdd6c6e3dca0bda5a15f863427b6e"},
     {file = "mccabe-0.7.0.tar.gz", hash = "sha256:348e0240c33b60bbdf4e523192ef919f28cb2c3d7d5c7794f74009290f236325"},
+]
+
+[[package]]
+name = "model-bakery"
+version = "1.20.4"
+requires_python = ">=3.8"
+summary = "Smart object creation facility for Django."
+groups = ["dev"]
+dependencies = [
+    "django>=4.2",
+]
+files = [
+    {file = "model_bakery-1.20.4-py3-none-any.whl", hash = "sha256:30ad372604f326a1ba9f949bad9d0f85e6a510db4ef6a0b07be2d6bd7485008b"},
+    {file = "model_bakery-1.20.4.tar.gz", hash = "sha256:a0c97e8a27329ecad78136f9d8f573ae392e4282326ea5c5f6daed1173013c4e"},
 ]
 
 [[package]]
@@ -505,7 +533,7 @@ name = "sqlparse"
 version = "0.5.3"
 requires_python = ">=3.8"
 summary = "A non-validating SQL parser."
-groups = ["default"]
+groups = ["default", "dev"]
 files = [
     {file = "sqlparse-0.5.3-py3-none-any.whl", hash = "sha256:cf2196ed3418f3ba5de6af7e82c694a9fbdbfecccdfc72e281548517081f16ca"},
     {file = "sqlparse-0.5.3.tar.gz", hash = "sha256:09f67787f56a0b16ecdbde1bfc7f5d9c3371ca683cfeaa8e6ff60b4807ec9272"},
@@ -581,8 +609,7 @@ name = "tzdata"
 version = "2025.1"
 requires_python = ">=2"
 summary = "Provider of IANA time zone data"
-groups = ["default"]
-marker = "sys_platform == \"win32\""
+groups = ["default", "dev"]
 files = [
     {file = "tzdata-2025.1-py2.py3-none-any.whl", hash = "sha256:7e127113816800496f027041c570f50bcd464a020098a3b6b199517772303639"},
     {file = "tzdata-2025.1.tar.gz", hash = "sha256:24894909e88cdb28bd1636c6887801df64cb485bd593f2fd83ef29075a81d694"},
