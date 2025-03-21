@@ -20,21 +20,21 @@ class Container(containers.DeclarativeContainer):
     )
 
     use_case_category_create_category = providers.Singleton(
-        CreateCategoryUseCase, category_repo=repository_category_in_memory
+        CreateCategoryUseCase, category_repo=repository_category_django_orm
     )
 
     use_case_category_list_categories = providers.Singleton(
-        ListCategoriesUseCase, category_repo=repository_category_in_memory
+        ListCategoriesUseCase, category_repo=repository_category_django_orm
     )
 
     use_case_category_get_category = providers.Singleton(
-        GetCategoryUseCase, category_repo=repository_category_in_memory
+        GetCategoryUseCase, category_repo=repository_category_django_orm
     )
 
     use_case_category_update_category = providers.Singleton(
-        UpdateCategoryUseCase, category_repo=repository_category_in_memory
+        UpdateCategoryUseCase, category_repo=repository_category_django_orm
     )
 
     use_case_category_delete_category = providers.Singleton(
-        DeleteCategoryUseCase, category_repo=repository_category_in_memory
+        DeleteCategoryUseCase, category_repo=repository_category_django_orm
     )
